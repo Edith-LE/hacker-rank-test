@@ -40,7 +40,7 @@
               name: item.firstName, 
               lastname: item.lastName,
               qty: item.qty,
-              date: new Date(item.called)
+              date: this.getRelativeDate(item.called * 1000)
             }
           ))
           this.dataInfo = maped
@@ -49,7 +49,7 @@
       },
       getRelativeDate(date) {
         const now = new Date();
-        const diffInMilliseconds = now - date;
+        const diffInMilliseconds = date - now;
 
         const seconds = Math.floor(diffInMilliseconds / 1000);
         const minutes = Math.floor(seconds / 60);
@@ -59,6 +59,7 @@
         const years = Math.floor(months / 12);
 
         const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+        console.log(rtf.format(years, 'year'));
         if (years !== 0) {
           return rtf.format(years, 'year');
         } else if (months !== 0) {
